@@ -1,2 +1,19 @@
 #!/bin/bash
-find . -name \*.gif -type f -printf "%f\n" | LC_COLLATE=C sort --ignore-case | rev | cut -c 5- | rev
+
+# List all files with a .gif extension in the current directory and all its subdirectories
+find . -type f -name "*.gif" |
+
+	# Sort the files by byte values, but case-insensitive
+sort -bdf |
+
+	# Remove the extensions from the file names
+sed 's/\.gif$//' |
+
+	# Print one file name per line
+while read -r filename; do
+	  echo "$filename"
+  done
+
+  # End with a new line
+  echo
+
